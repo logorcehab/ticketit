@@ -1,0 +1,72 @@
+.items{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/*  Code By Webdevtrick ( https://webdevtrick.com )  */
+nav {
+  margin-bottom: 1em !important;
+}
+
+.cart {
+  box-shadow: 0 0 5px #DDD;
+  padding: 20px;
+}
+.tiny {
+  background-color: #ff6d34;
+}
+#clear:hover {
+  background-color: #ff6d34;
+  color: #fff;
+}
+
+.card{
+    margin: 14px;
+}
+.card-title{
+    font-weight: bold;
+}
+.active::after{
+    content: "" !important;
+}
+
+.pagination-box{
+    display: flex;
+    margin: auto !important;
+    justify-content: space-around
+}
+
+@media (min-width: 1025px) {
+    .h-custom {
+        height: 100vh !important;
+    }
+}
+    
+.card-registration .select-input.form-control[readonly]:not([disabled]) {
+    font-size: 1rem;
+    line-height: 2.15;
+    padding-left: .75em;
+    padding-right: .75em;
+}
+    
+.card-registration .select-arrow {
+    top: 13px;
+}
+    
+.bg-grey {
+    background-color: #eae8e8;
+}
+    
+@media (min-width: 992px) {
+    .card-registration-2 .bg-grey {
+        border-top-right-radius: 16px;
+        border-bottom-right-radius: 16px;
+    }
+}
+    
+@media (max-width: 991px) {
+    .card-registration-2 .bg-grey {
+        border-bottom-left-radius: 16px;
+        border-bottom-right-radius: 16px;
+    }
+}

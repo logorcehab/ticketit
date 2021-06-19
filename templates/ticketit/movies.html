@@ -1,0 +1,55 @@
+{% extends 'ticketit/layout.html' %}
+{% block start %}
+<div class="row items products">
+{% load static %}
+{% for item in items %}
+<div class="col">
+
+<div class="card" style="width: 18rem;">
+    <img src="{{item.image}}" class="card-img-top img-thumbnail" alt="{{item.title}}">
+    <div class="product card-body" data-name="{{item.title}}" data-price="{{item.price}}" data-id="{{item.id}}">
+      <h5 class="card-title">{{item.title}}, {{item.year}} </h5>
+      <p class="card-text">Date: {{item.date}} &nbsp; &nbsp; &nbsp;  Capacity: {{item.capacity}}</p>
+      <div class="">
+        <h6 class="mb-0">GH₵ {{item.price}}</h6>
+      </div>
+      <form action="/buy-ticket/{{item.id}}/" method="GET">
+        <input type="number" class="count" name="count" value="1" />
+        {% if user.is_authenticated %}
+          <button class="buynow" >Buy Now</button>
+        {% else %}
+          <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+        {% endif %}
+      </form>
+      
+    </div>
+</div>
+</div>
+{% endfor %}
+</div>
+{% if items.has_other_pages %}
+<nav class="pagination-box">
+  <ul class="pagination justify-content-center">
+    {% if items.has_previous %}
+      <li><a href="?page={{ items.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in items.paginator.page_range %}
+      {% if items.number == i %}
+        <li class="active" style="
+          content: none;
+        "><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if items.has_next %}
+      <li><a href="?page={{ items.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+</nav>
+{% endif %}
+{% endblock start %}

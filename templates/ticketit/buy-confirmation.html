@@ -1,0 +1,13 @@
+{% extends 'ticketit/layout.html' %}
+{% block start %}
+{% load static %}
+<div class="buy-ticket">
+    <div class="header">
+        <h1>Buy {{count}} {{item.title}} ticket{% if  count != '1' %}s
+            {% endif %}
+            for GH₵ {% widthratio item.price 1 count %}
+        </h1>
+        <a type="button" class="btn btn-success" href="{% url 'buy-confirm' item_id=item.id count=count %}">Confirm Order</a>
+    </div>
+</div>
+{% endblock start %}

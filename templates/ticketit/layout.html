@@ -1,0 +1,318 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="title" content="project">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="language" content="English">
+  <meta name="author" content="vinayak sharma">
+
+  <title>{{title}}</title>
+
+
+  <!-- Font Awesome -->
+  <link
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+  rel="stylesheet"
+  />
+  <!-- Google Fonts -->
+  <link
+  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+  rel="stylesheet"
+  />
+  <!-- MDB -->
+  <link
+  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.5.0/mdb.min.css"
+  rel="stylesheet"
+  />
+
+  <!-- MDB -->
+  <script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.5.0/mdb.min.js"
+  ></script>
+  <!-- bootstrap file-->
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+  <!-- main css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}" />
+
+
+  <!-- message here -->
+
+  {% if messages %}
+  {% for message in messages %}
+
+  <script>
+    alert("{{ message }}");
+  </script>
+
+  {% endfor %}
+  {% endif %}
+
+  <!--_______________________________________________-->
+  <style>
+    .collapsible {
+      background-color: #eee;
+      color: #444;
+      cursor: pointer;
+      padding: 18px;
+      width: 100%;
+      border: none;
+      text-align: left;
+      outline: none;
+      font-size: 15px;
+    }
+    #main{
+      margin:50px;
+    }
+
+    .button-custom {
+      background-color: #eee;
+      color: #444;
+      cursor: pointer;
+      padding: 5px;
+      border: none;
+      text-align: left;
+      outline: none;
+      font-size: 15px;
+    }
+
+    /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+    .active, .collapsible:hover {
+      background-color: #ccc;
+    }
+
+    /* Style the collapsible content. Note: hidden by default */
+    .content {
+      margin-top: 10px;
+      padding: 0 18px;
+      background-color: white;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.2s ease-out;
+    }
+    .collapsible:after {
+      content: '\02795'; /* Unicode character for "plus" sign (+) */
+      font-size: 13px;
+      color: white;
+      float: right;
+      margin-left: 5px;
+    }
+
+    .active:after {
+      content: "\2796"; /* Unicode character for "minus" sign (-) */
+    }
+    .settings-button{
+      background-color:none;
+      border: none;
+      outline: none;
+    }
+    .settings-button:hover{
+      background-color:none;
+      border: none;
+      outline: none;
+    }
+
+  </style>
+
+
+</head>
+
+<body class="container-fluid">
+
+
+  <header class="row">
+
+    <!-- navbar-->
+    <!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <!-- Container wrapper -->
+  <div class="container-fluid">
+    <!-- Toggle button -->
+
+    <!-- Collapsible wrapper -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <!-- Navbar brand -->
+      <a class="navbar-brand" class="styleheader" href="{% url "home" %}">project</a>
+      <!-- Left links -->
+      <!-- Left links -->
+    </div>
+    <!-- Collapsible wrapper -->
+
+    <!-- Right elements -->
+    <div class="d-flex align-items-center">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" href="{% url "home" %}" onclick="display('cart')">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url "movies" %}">Movies</a>
+      </li>
+      {% if user.is_authenticated %}
+      
+      <li class="nav-item">
+        <a type="button"
+        class="nav-link settings-button"
+        data-mdb-toggle="modal"
+        data-mdb-target="#exampleModal"
+      >Settings</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url "logout" %}">LogOut</a>
+      </li>
+      {% else %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url "register" %}">Register</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url "login" %}">Login</a>
+      </li>
+      {% endif %}
+      </ul>
+    </div>
+    <!-- Right elements -->
+  </div>
+  <!-- Container wrapper -->
+</nav>
+<!-- Navbar -->
+  </header>
+  <br/>
+  <br>
+  <br>
+  <div id="main" class="row">
+  
+    {% block start %}
+    
+    {% endblock %}
+
+  </div>
+  
+  
+  
+  <!--Modals-->
+  <div class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+    <div class="modal-dialog">
+  
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"><center>Settings</center></h4>
+        </div>
+        <div class="modal-body">
+          <div class="edit-profile-section">
+            <button type="button" class="editProfileCollapsible collapsible" onclick="collapsible('editProfileCollapsible')">Edit Profile</button>
+            <div class="content">
+              <form class="needs-validation" method='POST' action='update/profile/'>
+                {% csrf_token %}
+                <div class="form-row">
+                  <div class="col-md-4 mb-3">
+                    <label for="validationCustom01">First name</label>
+                    <input type="text"  name="first_name" class="form-control" id="validationCustom01" placeholder="First name" >
+                    
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label for="validationCustom02">Last name</label>
+                    <input type="text" name="last_name"  class="form-control" id="validationCustom02" placeholder="Last name"  >
+      
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label for="validationCustomUsername">Username</label>
+                    <div class="input-group">
+                    
+                      <input type="text" name="username" class="form-control" id="validationCustomUsername" placeholder="{{user.username}}" aria-describedby="inputGroupPrepend" >
+                      
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col-md-6 mb-3">
+                    <label for="validationCustomEmail">Email</label>
+                    <input type="email" name="email" class="form-control" id="validationCustomEmail" placeholder="{{user.email}}" >
+                  </div>
+                  <button class="btn btn-primary" type="submit">Update Profile</button>
+                  <p>&nbsp;</p>
+                </div>
+      
+              </form>
+            </div>
+          </div>
+          <div class="change-password-section">
+            <button type="button" class="changePasswordCollapsible collapsible" onclick="collapsible('changePasswordCollapsible')">Change Password</button>
+            <div class="content">
+              <form class="needs-validation" method='POST' action='update/password/'>
+                {% csrf_token %}
+                <div class="form-row">
+                    <label for="validationCustomPassword">Current Password</label>
+                    <input type="password" name="password1" class="form-control" id="validationCustomPassword" placeholder="Currrent Password" required>
+                </div>
+                <div class="form-row">
+                    <label for="validationCustomPassword">New Password</label>
+                    <input type="password" name="password2" class="form-control" id="validationCustomPassword" placeholder="New Password" required>
+                </div>
+                <div class="form-row">
+                    <label for="validationCustomPassword">Confirm New Password</label>
+                    <input type="password" name="password3" class="form-control" id="validationCustomPassword" placeholder="ConfirmNew Password" required>
+                </div>
+                <div class="form-row">
+                  <div class="col-md-6 mb-3">
+                    <p>&nbsp;</p>
+                    <button class="btn btn-primary" type="submit">Update Password</button>
+                  </div>
+                  
+                </div>
+      
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer" style="text-align: center;">
+          Terms And Conditions
+        </div>
+      </div>
+
+  
+    </div>
+  </div>
+  <script type="text/template" id="cartT">
+    <% _.each(items, function (item) { %> <div class = "panel"> <h3> <%= item.name %> </h3>  <span class="label">
+  <%= item.count %> ticket <% if(item.count > 1)
+  {%>s
+  <%}%> for GH₵<%= item.total %></span > </div>
+  <% }); %>
+  </script>
+   
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js'></script>
+ 
+  <script>
+    
+    function collapsible(className){
+      var coll = document.getElementsByClassName(className);
+      coll[0].classList.toggle("active");
+      var content = coll[0].nextElementSibling;
+      if (content.style.maxHeight){
+        content.style.maxHeight = null;
+      } else {
+        content.style.maxHeight = content.scrollHeight + "px";
+      }
+    }
+  </script>
+
+</body>
+
+</html>
